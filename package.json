@@ -1,5 +1,5 @@
 {
-  "name": "nsqjs",
+  "name": "@upyun/nsqjs",
   "description": "NodeJS client for NSQ",
   "version": "0.7.12",
   "homepage": "https://github.com/dudleycarr/nsqjs",
