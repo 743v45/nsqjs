@@ -20,7 +20,7 @@ lookupdRequest = (url, callback) ->
 
   request options, (err, response, data) ->
     if err
-      callback null, []
+      throw err
       return
 
     # Unpack JSON response
