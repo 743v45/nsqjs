@@ -16,7 +16,7 @@ lookupdRequest = (url, callback) ->
     url: url
     method: 'GET'
     json: true
-    timeout: 2000
+    timeout: 10000
 
   request options, (err, response, data) ->
     if err
