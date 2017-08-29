@@ -25,7 +25,8 @@ lookupdRequest = (url, callback) ->
 
     # Unpack JSON response
     try
-      {status_code: status_code, data: {producers: producers}} = data
+      {statusCode: status_code} = response
+      {producers:producers} = data
     catch error
       callback null, []
       return
@@ -49,7 +50,7 @@ dedupeOnHostPort = (results) ->
     .flatten()
     # De-dupe nodes by hostname / port
     .indexBy (item) ->
-      "#{item.hostname}:#{item.tcp_port}"
+      "#{item.broadcast_address}:#{item.tcp_port}"
     .values()
     .value()
 

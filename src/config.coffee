@@ -17,7 +17,8 @@ class ConnectionConfig
     snappy: false
     tls: false
     tlsVerification: true
-    
+    idleTimeout: 0
+
     # add client verification
     # support for nsqd `--tls-client-auth-policy` argument
     ca: null
@@ -94,6 +95,7 @@ class ConnectionConfig
     snappy: [@isBoolean]
     tls: [@isBoolean]
     tlsVerification: [@isBoolean]
+    idleTimeout: [@isNumber, 0]
     ca: []
     key: []
     cert: []

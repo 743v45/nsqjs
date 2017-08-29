@@ -1,12 +1,69 @@
 {
-  "name": "@upyun/nsqjs",
-  "description": "NodeJS client for NSQ",
-  "version": "0.7.12",
-  "homepage": "https://github.com/dudleycarr/nsqjs",
+  "_from": "nsqjs",
+  "_id": "nsqjs@0.8.4",
+  "_inBundle": false,
+  "_integrity": "sha1-fG12m19nq3vEoD6ydF9fH99+dLI=",
+  "_location": "/nsqjs",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "nsqjs",
+    "name": "nsqjs",
+    "escapedName": "nsqjs",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/nsqjs/-/nsqjs-0.8.4.tgz",
+  "_shasum": "7c6d769b5f67ab7bc4a03eb2745f5f1fdf7e74b2",
+  "_spec": "nsqjs",
+  "_where": "/Users/ran/Downloads",
   "author": {
     "name": "Dudley Carr",
     "email": "dudley.carr@gmail.com"
   },
+  "bugs": {
+    "url": "https://github.com/dudleycarr/nsqjs/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "async": "^2.1.4",
+    "bignumber.js": "~1.2.1",
+    "debug": "^2.6.0",
+    "moment": "^2.17.1",
+    "node-int64": "~0.3.0",
+    "node-state": "~1.4.4",
+    "request": "^2.79.0",
+    "snappystream": "^0.3.4",
+    "underscore": "~1.5.2"
+  },
+  "deprecated": false,
+  "description": "NodeJS client for NSQ",
+  "devDependencies": {
+    "coffee-errors": "^0.8.6",
+    "coffee-script": "^1.12.2",
+    "coffeelint": "~1.0.2",
+    "grunt": "^1.0.0",
+    "grunt-cli": "^1.2",
+    "grunt-coffeelint": "0.0.16",
+    "grunt-contrib-coffee": "^1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-cli": "^3.0.0",
+    "mocha": "^3.2",
+    "nock": "~0.27.1",
+    "should": "^11.1.2",
+    "sinon": "~1.7.3",
+    "temp": "^0.8.0"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "homepage": "https://github.com/dudleycarr/nsqjs",
   "keywords": [
     "nsq",
     "nsq client",
@@ -17,13 +74,6 @@
     "task",
     "task management"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dudleycarr/nsqjs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/dudleycarr/nsqjs/issues"
-  },
   "licenses": [
     {
       "type": "MIT",
@@ -31,40 +81,16 @@
     }
   ],
   "main": "lib/nsq",
+  "name": "nsqjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dudleycarr/nsqjs.git"
+  },
   "scripts": {
     "build": "coffee --bare --compile --output lib src/*.coffee",
-    "prepublish": "coffee --bare --compile --output lib src/*.coffee",
     "postpublish": "rm -rf lib",
-    "test": "node_modules/.bin/grunt test"
+    "prepublish": "coffee --bare --compile --output lib src/*.coffee",
+    "test": "grunt test"
   },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "devDependencies": {
-    "coffee-errors": "^0.8.6",
-    "coffee-script": "~1.6.3",
-    "coffeelint": "~1.0.2",
-    "grunt": "~0.4.1",
-    "grunt-cli": "^0.1.13",
-    "grunt-coffeelint": "0.0.8",
-    "grunt-contrib-coffee": "~0.7",
-    "grunt-contrib-watch": "~0.5.1",
-    "grunt-mocha-cli": "^1.9.0",
-    "mocha": "~1.9.0",
-    "nock": "~0.27.1",
-    "should": "^4.0.4",
-    "sinon": "~1.7.3",
-    "temp": "^0.8.0"
-  },
-  "dependencies": {
-    "async": "^0.9.0",
-    "bignumber.js": "~1.2.1",
-    "debug": "^2.1.0",
-    "moment": "~2.4.0",
-    "node-int64": "~0.3.0",
-    "node-state": "~1.4.1",
-    "request": "~2.64.0",
-    "snappystream": "^0.3.3",
-    "underscore": "~1.5.2"
-  }
+  "version": "0.8.4"
 }

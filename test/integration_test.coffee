@@ -8,21 +8,22 @@ temp = require('temp').track()
 
 nsq = require '../src/nsq'
 
-TCP_PORT = 14150
-HTTP_PORT = 14151
+TCP_PORT = 4150
+HTTP_PORT = 4151
 
 startNSQD = (dataPath, additionalOptions, callback) ->
   additionalOptions or= {}
   options =
     'http-address': "127.0.0.1:#{HTTP_PORT}"
     'tcp-address': "127.0.0.1:#{TCP_PORT}"
+    'broadcast-address': '127.0.0.1'
     'data-path': dataPath
     'tls-cert': './test/cert.pem'
     'tls-key': './test/key.pem'
 
   _.extend options, additionalOptions
-  options = ("-#{key}=#{value}" for key, value of options)
-  process = child_process.spawn 'nsqd', options,
+  options = _.flatten (["-#{key}", value] for key, value of options)
+  process = child_process.spawn 'nsqd', options.concat(additionalOptions),
     stdio: ['ignore', 'ignore', 'ignore']
 
   # Give nsqd a chance to startup successfully.
@@ -38,8 +39,8 @@ topicOp = (op, topic, callback) ->
   request options, (err, res, body) ->
     callback err
 
-createTopic = _.partial topicOp, 'create_topic'
-deleteTopic = _.partial topicOp, 'delete_topic'
+createTopic = _.partial topicOp, 'topic/create'
+deleteTopic = _.partial topicOp, 'topic/delete'
 
 # Publish a single message via HTTP
 publish = (topic, message, done) ->
@@ -72,17 +73,18 @@ describe 'integration', ->
     createTopic 'test', done
 
   afterEach (done) ->
-    reader?.close()
+    reader.close()
     deleteTopic 'test', done
 
   describe 'stream compression and encryption', ->
-    [
+    optionPermutations = [
       {deflate: true}
       {snappy: true}
       {tls: true, tlsVerification: false}
       {tls: true, tlsVerification: false, snappy: true}
       {tls: true, tlsVerification: false, deflate: true}
-    ].forEach (options) ->
+    ]
+    for options in optionPermutations
       # Figure out what compression is enabled
       compression = (key for key in ['deflate', 'snappy'] when key of options)
       compression.push 'none'
@@ -182,7 +184,7 @@ describe 'integration', ->
       reader.on 'message', (msg) ->
         msg.finish()
         clearTimeout timeout
-        waitedLongEnough.should.be.true
+        waitedLongEnough.should.be.true()
         done()
 
       writer.publish topic, 'pause test'
@@ -192,7 +194,7 @@ describe 'integration', ->
 
       reader.on 'message', (msg) ->
         # check the message
-        msg.json().messageShouldArrive.should.be.true
+        msg.json().messageShouldArrive.should.be.true()
         msg.finish()
 
         if reader.isPaused() then return done()
@@ -227,7 +229,7 @@ describe 'integration', ->
       writer.publish topic, sentWhilePaused: false
 
       reader.on 'message', (msg) ->
-        shouldReceive.should.be.true
+        shouldReceive.should.be.true()
 
         reader.pause()
         msg.requeue()

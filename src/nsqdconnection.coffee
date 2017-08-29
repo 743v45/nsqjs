@@ -119,11 +119,13 @@ class NSQDConnection extends EventEmitter
       @emit 'connection_error', err
     conn.on 'close', (err) =>
       @statemachine.raise 'close'
+    conn.setTimeout @config.idleTimeout, =>
+      @statemachine.raise 'close'
 
   startTLS: (callback) ->
     @conn.removeAllListeners event for event in ['data', 'error', 'close']
 
-    {ca, key, cert, tlsVerification} = @config
+    { ca, key, cert, tlsVerification } = @config
     options = {
       socket: @conn
       rejectUnauthorized: tlsVerification
@@ -131,7 +133,7 @@ class NSQDConnection extends EventEmitter
       key
       cert
     }
-    
+
     tlsConn = tls.connect options, =>
       @conn = tlsConn
       callback?()

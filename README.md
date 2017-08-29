@@ -19,6 +19,8 @@ options object.
   The maximum number of messages to process at once. This value is shared between nsqd connections. It's highly recommended that this value is greater than the number of nsqd connections.
 * ```heartbeatInterval: 30``` <br/>
   The frequency in seconds at which the nsqd will send heartbeats to this Reader.
+* ```idleTimeout: 0``` <br/>
+  Socket timeout after idling for the duration in millisecond (default set to 0 means disabled).
 * ```maxBackoffDuration: 128``` <br/>
   The maximum amount of time (seconds) the Reader will backoff for any single backoff
   event.
@@ -66,9 +68,7 @@ options object.
 * ```key: <string> | <string[]> | <Buffer> | <Buffer[]>```  
   Private key of the client in PEM format. (only used for tls client verification)
 * ```cert: <string> | <string[]> | <Buffer> | <Buffer[]>```  
-  Certificate key of the client in PEM format. (only used for tls client verification)
-
-  
+  Certificate key of the client in PEM format. (only used for tls client verification)  
 
 Reader events are:
 
